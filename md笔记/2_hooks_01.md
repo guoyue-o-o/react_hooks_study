@@ -144,6 +144,17 @@ export default HooksView;
 
 - 解决父子组件传值问题
 
+### 适用场景：
+**被用于在多个层级的多个组件需要访问相同数据的情景**
+
+### 作用：
+- 改变主题
+- 父子耦合
+- 作用于多个上下文
+- 在生命周期方法中访问Context
+- 高阶组件的Context
+- 转发refs
+
 ```
 import React, { useState, createContext, useContext } from 'react';
 

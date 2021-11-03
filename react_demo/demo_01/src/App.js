@@ -11,17 +11,15 @@ import HooksView6 from './components/HooksView6/HooksView6';
 import HooksView6_02 from './components/HooksView6_02/HooksView6_02';
 
 import { bgColorContext, ThemeBgColor } from './actions/themeBgColor';
-import IndexBgView from './components/IndexBgView';
 import { UPDATE_THEME_BG_COLOR } from './data/constData';
 
 function App() {
   const { dispatch, bgColor } = useContext(bgColorContext);
-  console.log('================bgColor 首页=================== ', bgColor);
   return (
     <div className="App">
       <ThemeBgColor>
         <header className="App-header" style={{
-          'backgroundColor': bgColor,
+          backgroundColor: bgColor,
         }}>
           <div className='navView'>
             <button style={{

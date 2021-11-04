@@ -256,4 +256,61 @@ function HooksView5() {
 export default HooksView5;
 ```
 
-## useReducer + useContext 实现类似redux的功能
+# useReducer + useContext 实现类似redux的功能
+
+# useMemo
+《==》 shouldComponentUpdate
+**解决重复性渲染,反复执行问题**
+
+比如点击父组件，父组件状态改变，子组件也触发方法
+
+```
+
+```
+
+# useRef
+
+特性：
+- 获取dom元素
+- 保存变量
+
+```
+import React, { useEffect, useRef, useState } from 'react';
+
+
+function HooksView8() {
+    <!-- 1.获取dom元素 -->
+    const inputEl = useRef(null);
+
+    const onBtnClick = () => {
+        inputEl.current.value = '你好';
+    }
+    const [text, setText] = useState('初始值');
+    <!-- 2.保存变量 -->
+    const textRef = useRef();
+
+    useEffect(() => {
+        textRef.current = text;
+    })
+
+    return (
+        <div>
+            <h1>
+                HooksView8---useRef
+            </h1>
+            <input ref={inputEl} type='text' />
+            <button onClick={onBtnClick}>
+                在input显示文字
+            </button>
+            <br />
+            <br />
+            <br />
+            <input value={text} onChange={(e) => setText(e.target.value)} />
+        </div>
+    )
+
+}
+
+export default HooksView8;
+
+```

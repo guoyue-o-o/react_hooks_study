@@ -12,6 +12,8 @@ import HooksView6_02 from './components/HooksView6_02/HooksView6_02';
 
 import { bgColorContext, ThemeBgColor } from './actions/themeBgColor';
 import { UPDATE_THEME_BG_COLOR } from './data/constData';
+import HooksView8 from './components/HooksView8';
+import HooksView9 from './components/HooksView9';
 
 function App() {
   const { dispatch, bgColor } = useContext(bgColorContext);
@@ -53,6 +55,11 @@ function App() {
           <HooksView6 />
           <GapView />
           <HooksView6_02 />
+          <GapView />
+          <HooksView8 />
+          <GapView />
+          <HooksView9 />
+          <GapView />
           <GapView />
         </header>
       </ThemeBgColor>

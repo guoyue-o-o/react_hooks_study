@@ -38,7 +38,6 @@ function App() {
             </button>
           </div>
 
-
           {/* 导航栏 */}
           <HeaderNavView />
           <GapView />

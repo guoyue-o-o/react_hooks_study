@@ -42,24 +42,64 @@ let setCount = _useState[1]
 - 等价于 componentDidUpdate,componentDidMount
 - return 匿名函数可以表示销毁生命周期
 
- ```
+## 用法一
+```
+// props.name发生变化时，才会重新渲染
+function Welcome(props) {
+  useEffect(() => {
+    document.title = `Hello, ${props.name}`;
+  }, [props.name]);
+  return <h1>Hello, {props.name}</h1>;
+}
 
+```
+useEffect(arg1, arg2)
+- arg1副效应函数，
+  - 副效应是随着组件加载而发生的
+  - **默认是每次渲染都会执行**
+- arg2 数组，指明了副效应函数的依赖项
+  - 如果是空数组，就表明副效应参数没有任何依赖项。因此，副效应函数这时只会在组件加载进入 DOM 后执行一次，后面组件重新渲染，就不会再次执行
+  - [props.name]，指定了第一个参数（副效应函数）的依赖项（props.name),只有该变量发生变化时，副效应函数才会执行
+
+
+## 用法二
+```
+<!-- useEffect()在组件加载时订阅了一个事件，并且返回一个清理函数，在组件卸载时取消订阅 -->
 useEffect(() => {
-    console.log('componentDidUpdate,componentDidMount ------>')
+  const subscription = props.source.subscribe();
 
-    // 销毁生命周期
-    return ()=> {
-        console.log('componentWillUnmount ------>')
-    }
-}, 可选参数)
+  // 清除副效应函数
+  <!-- 清理函数不仅会在组件卸载时执行一次，每次副效应函数重新执行之前，也会执行一次，用来清理上一次渲染的副效应。 -->
+  return () => {
+    subscription.unsubscribe();
+  };
+}, [props.source]);
 
-// 可选参数  
-// [] 表示离开当前页面的时候执行return
-// [count] 表示count变化的时候执行return
+```
+## 用法三（注意）
+**如果有多个副效应，应该调用多个useEffect()**
+```
+function App() {
+  const [varA, setVarA] = useState(0);
+  const [varB, setVarB] = useState(0);
 
- ```
+  useEffect(() => {
+    const timeout = setTimeout(() => setVarA(varA + 1), 1000);
+    return () => clearTimeout(timeout);
+  }, [varA]);
 
+  useEffect(() => {
+    const timeout = setTimeout(() => setVarB(varB + 2), 2000);
 
+    return () => clearTimeout(timeout);
+  }, [varB]);
+
+  return <span>{varA}, {varB}</span>;
+}
+
+```
+
+## 综合
  ```
 
 import React, { useState, useEffect } from 'react';

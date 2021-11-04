@@ -16,6 +16,7 @@ function useWinSize() {
     }, [])
 
     useEffect(() => {
+        console.log('================监听=================== ');
         // addEventListener 三个参数，
         window.addEventListener('resize', onResize);
 
